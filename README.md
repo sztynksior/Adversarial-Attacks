@@ -5,8 +5,8 @@ This small example project demonstrates how to **train a perturbation mask** use
 Image-recognition neural networks are vulnerable to adversarial attacks. It is possible to cause a trained model to misclassify an image as a chosen target class by adding a trained perturbation (a "mask") to the image. The perturbation is usually constrained so the changes are small and often hard for humans to notice, yet large enough to mislead the model.
 
 ## Results
-### Model performence before attack
-<table>
+### Model performence before the attack
+<table align="center">
   <thead>
       <th colspan="3">Initial predictions</th>
   </thead>
@@ -25,7 +25,7 @@ Image-recognition neural networks are vulnerable to adversarial attacks. It is p
 </table>
 
 ### Model performence after the attack
-<table>
+<table align="center">
   <thead>
     <tr>
       <th scope="col" colspan="4">Experiment 1</th>
@@ -56,9 +56,7 @@ Image-recognition neural networks are vulnerable to adversarial attacks. It is p
   </tbody>
 </table>
 
----
-
-<table>
+<table align="center">
   <thead>
     <tr>
       <th scope="col" colspan="4">Experiment 2</th>
@@ -89,9 +87,7 @@ Image-recognition neural networks are vulnerable to adversarial attacks. It is p
   </tbody>
 </table>
 
----
-
-<table>
+<table align="center">
   <thead>
     <tr>
       <th scope="col" colspan="4">Experiment 3</th>
@@ -122,9 +118,7 @@ Image-recognition neural networks are vulnerable to adversarial attacks. It is p
   </tbody>
 </table>
 
----
-
-<table>
+<table align="center">
   <thead>
     <tr>
       <th scope="col" colspan="4">Experiment 4</th>
