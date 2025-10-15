@@ -6,56 +6,153 @@ Image-recognition neural networks are vulnerable to adversarial attacks. It is p
 
 ## Results
 ### Model performence before attack
-<img width="237" height="207" alt="pedestrians" src="https://github.com/user-attachments/assets/604d489c-5f03-4563-a372-b6ee963ead59" />
+<table>
+  <thead>
+      <th colspan="3">Initial predictions</th>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Stop</th>
+      <th>Pedestrians</th>
+      <th>Yield</th>
+    </tr>
+    <tr>
+      <th><img width="150" height="137" alt="stop" src="https://github.com/user-attachments/assets/f658049a-2f70-48c8-a7b3-cf28b18aed46" /></th>
+      <th><img width="150" height="137" alt="pedestrians" src="https://github.com/user-attachments/assets/604d489c-5f03-4563-a372-b6ee963ead59" /></th>
+      <th><img width="150" height="137" alt="yield" src="https://github.com/user-attachments/assets/674607a2-05b3-43c9-9e92-6cde0f26ccf3" /></th>
+    </tr>
+  </tbody>
+</table>
 
-Initial prediction: Pedestrians
-
-![stop](https://github.com/user-attachments/assets/a852c145-bfdd-449e-a951-b44b7b0b0713)
-
-Initial prediction: Stop
-
-<img width="150" height="137" alt="yield" src="https://github.com/user-attachments/assets/674607a2-05b3-43c9-9e92-6cde0f26ccf3" />
-
-Initial prediction: Yield
-
-### Model performence after attack
-Target class: Pedestrians, Oryginal class: Stop
-
-Step: 158, Prediction: Pedestrians, Loss: -23.124422073364258, Target Class Probability: 0.40884917974472046
-
-<img width="590" height="222" alt="image" src="https://github.com/user-attachments/assets/51773000-b34b-45f9-a4bf-303f73b3e359" />
-
-Target class 27 reached at step 158.
+### Model performence after the attack
+<table>
+  <thead>
+    <tr>
+      <th scope="col" colspan="4">Experiment 1</th>
+    </tr>
+    <tr>
+      <th scope="col" colspan="2">Oryginal image</th>
+      <th scope="col" colspan="2">Target image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">name: Stop</th>
+      <th scope="row">label: 14</th>
+      <th scope="row">name: Pedestrians</th>
+      <th scope="row">label: 27</th>
+    </tr>
+    <tr>
+      <th scope="row" colspan="4"><img width="590" height="222" alt="image" src="https://github.com/user-attachments/assets/51773000-b34b-45f9-a4bf-303f73b3e359" />
+    </tr>
+    <tr>
+      <th scope="row" colspan="2">Target class reached at atep 158</th>
+      <th scope="row" colspan="2">Prediction: Pedestrians</th>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2">Loss: -23.124422073364258</th>
+      <th scope="row" colspan="2">Target Class Probability: 0.40884917974472046</th>
+    </tr>
+  </tbody>
+</table>
 
 ---
-Target class: Yield, Oryginal class: Pedestrians
 
-Step: 73, Prediction: Yield, Loss: -63.81779098510742, Target Class Probability: 0.5005481243133545
-
-<img width="590" height="222" alt="image" src="https://github.com/user-attachments/assets/2bdb744d-9e5e-4141-93eb-daebeb1575da" />
-
-Target class 13 reached at step 73.
+<table>
+  <thead>
+    <tr>
+      <th scope="col" colspan="4">Experiment 2</th>
+    </tr>
+    <tr>
+      <th scope="col" colspan="2">Oryginal image</th>
+      <th scope="col" colspan="2">Target image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">name: Pedestrians</th>
+      <th scope="row">label: 27</th>
+      <th scope="row">name: Yield</th>
+      <th scope="row">label: 13</th>
+    </tr>
+    <tr>
+      <th scope="row" colspan="4"><img width="590" height="222" alt="image" src="https://github.com/user-attachments/assets/2bdb744d-9e5e-4141-93eb-daebeb1575da" />
+    </tr>
+    <tr>
+      <th scope="row" colspan="2">Target class reached at atep 73</th>
+      <th scope="row" colspan="2">Prediction: Yield</th>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2">Loss: -63.81779098510742</th>
+      <th scope="row" colspan="2">Target Class Probability: 0.5005481243133545</th>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
-Target class: Pedestrians, Oryginal class: Yield
-
-Step: 57, Prediction: Pedestrians, Loss: -48.407772064208984, Target Class Probability: 0.5284264087677002
-
-<img width="590" height="222" alt="image" src="https://github.com/user-attachments/assets/ec8437e8-9b82-4dfe-95ee-864dcf78b88c" />
-
-Target class 27 reached at step 57.
+<table>
+  <thead>
+    <tr>
+      <th scope="col" colspan="4">Experiment 3</th>
+    </tr>
+    <tr>
+      <th scope="col" colspan="2">Oryginal image</th>
+      <th scope="col" colspan="2">Target image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">name: Yield</th>
+      <th scope="row">label: 13</th>
+      <th scope="row">name: Pedestrians</th>
+      <th scope="row">label: 27</th>
+    </tr>
+    <tr>
+      <th scope="row" colspan="4"><img width="590" height="222" alt="image" src="https://github.com/user-attachments/assets/ec8437e8-9b82-4dfe-95ee-864dcf78b88c" />
+    </tr>
+    <tr>
+      <th scope="row" colspan="2">Target class reached at atep 57</th>
+      <th scope="row" colspan="2">Prediction: Yield</th>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2">Loss: -48.407772064208984</th>
+      <th scope="row" colspan="2">Target Class Probability: 0.5284264087677002</th>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
-Target class: Stop, Oryginal class: Yield
-
-Step: 425, Prediction: Stop, Loss: -407.3600158691406, Target Class Probability: 0.5093487501144409
-
-<img width="590" height="222" alt="image" src="https://github.com/user-attachments/assets/2dc81c54-217a-4ba0-b85c-642c5c6f3a53" />
-
-Target class 14 reached at step 425.
-
-## Conclusion
+<table>
+  <thead>
+    <tr>
+      <th scope="col" colspan="4">Experiment 4</th>
+    </tr>
+    <tr>
+      <th scope="col" colspan="2">Oryginal image</th>
+      <th scope="col" colspan="2">Target image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">name: Yield</th>
+      <th scope="row">label: 13</th>
+      <th scope="row">name: Stop</th>
+      <th scope="row">label: 14</th>
+    </tr>
+    <tr>
+      <th scope="row" colspan="4"><img width="590" height="222" alt="image" src="https://github.com/user-attachments/assets/2dc81c54-217a-4ba0-b85c-642c5c6f3a53" />
+    </tr>
+    <tr>
+      <th scope="row" colspan="2">Target class reached at atep 425</th>
+      <th scope="row" colspan="2">Prediction: Stop</th>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2">Loss: -407.3600158691406</th>
+      <th scope="row" colspan="2">Target Class Probability: 0.5093487501144409</th>
+    </tr>
+  </tbody>
+</table>
 
 
