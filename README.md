@@ -4,6 +4,52 @@ This small example project demonstrates how to **train a perturbation mask** use
 ## About Adversarial Attacks
 Image-recognition neural networks are vulnerable to adversarial attacks. It is possible to cause a trained model to misclassify an image as a chosen target class by adding a trained perturbation (a "mask") to the image. The perturbation is usually constrained so the changes are small and often hard for humans to notice, yet large enough to mislead the model.
 
+## Perturbation mask training
+
+The following code block presents learning step function used for perturbation mask training:
+```Python
+def do_step():
+    with tf.GradientTape() as tape:
+        adv_image = tf.clip_by_value(image + delta, 0, 255)
+        prediction = model(adv_image, training=False)
+        original_loss = lossFunct(tf.convert_to_tensor([real_class]), prediction)
+        target_loss = lossFunct(tf.convert_to_tensor([target_class]), prediction)
+        loss = target_loss - original_loss
+
+    gradients = tape.gradient(loss, delta)
+    optimizer.apply_gradients([(gradients, delta)])
+    clipped_delta = tf.clip_by_value(delta, clip_value_min=-0.01, clip_value_max=0.01)
+    delta.assign_add(clipped_delta)
+
+    return loss, prediction
+```
+
+### Loss function interpretation
+
+Both **target_loss** and **original_loss** are categorical cross entropy losses. Knowing that we can expand formula of the final loss:
+
+$$Loss = -\sum_{i=1}^n{t_i\log{\hat y_i} - o_i\log{\hat y_i}}$$
+
+where $n$ is a number of classes, $t_i$ is equal to 1 only if $i =\text{target class}$ and $0$ otherwise, $o_i$ is equal to 1 only if $i =\text{oryginal class}$ and $0$ otherwise and $\hat y_i$ is a probability output of the model for class $i$. By assuming that for target class $i=a$ and for oryginal class $i=b$ we can simplify the loss formula:
+
+$$Loss = -\log{\hat y_a}+\log{\hat y_b}$$
+
+Now it is clearly visible how the loss affects the training. It benefits the perturbation mask if probability of target class gets higher and probability of oryginal class gets lower.
+
+To understand how the gradient is calculated it is enaugh to imagine that perturbation mask is just another layer of the model added before the oryginal input layer, and we will call it adversarial attak layer from now. Each neuron of the layer takes as an input value of one of oryginal image pixels and ah one connections with corresponding neuron of the oryginal input layer. Adversarial attak layer activation function looks as follows:
+
+$$y=x_i+b_i$$
+
+where $x_i$ is a value of 
+
+### Calculalting the gradient
+
+The following formula describes how gradient is applayed to the perturbarion mask at each learning step:
+
+$$\forall t, 𝐩^{(t)}\leftarrow 𝐩^{(t-1)}-\min(-0.01, \max(\eta\nabla_{𝐩^{(t-1)}}-\log(y_t)+\log(y_o), 0.01))$$
+
+where $t$ is a learning step, 𝐩 is a perturbation mask and $\eta$ is a learning rate parameter. 
+
 ## Results
 ### Model performence before the attack
 <table align="center">
