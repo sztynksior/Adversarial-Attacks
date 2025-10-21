@@ -26,29 +26,15 @@ def do_step():
 
 ### Loss function interpretation
 
-Both **target_loss** and **original_loss** are categorical cross entropy losses. Knowing that we can expand formula of the final loss:
+Both **target_loss** and **original_loss** are categorical cross entropy losses. Knowing that we can expand formula of the final loss
 
-$$Loss = -\sum_{i=1}^n{t_i\log{\hat y_i} - o_i\log{\hat y_i}}$$
+$$Loss = -\sum_{i=1}^n{t_i\log{\hat y_i} - o_i\log{\hat y_i}},$$
 
-where $n$ is a number of classes, $t_i$ is equal to 1 only if $i =\text{target class}$ and $0$ otherwise, $o_i$ is equal to 1 only if $i =\text{oryginal class}$ and $0$ otherwise and $\hat y_i$ is a probability output of the model for class $i$. By assuming that for target class $i=a$ and for oryginal class $i=b$ we can simplify the loss formula:
+where $n$ is a number of classes, $t_i$ is equal to 1 only if $i =\text{target class}$ and $0$ otherwise, $o_i$ is equal to 1 only if $i =\text{oryginal class}$ and $0$ otherwise and $\hat y_i$ is a probability output of the model for class $i$. By assuming that for target class $i=a$ and for oryginal class $i=b$ we can simplify the loss formula
 
-$$Loss = -\log{\hat y_a}+\log{\hat y_b}$$
+$$Loss = -\log{\hat y_a}+\log{\hat y_b},$$
 
-Now it is clearly visible how the loss affects the training. It benefits the perturbation mask if probability of target class gets higher and probability of oryginal class gets lower.
-
-To understand how the gradient is calculated it is enaugh to imagine that perturbation mask is just another layer of the model added before the oryginal input layer, and we will call it adversarial attak layer from now. Each neuron of the layer takes as an input value of one of oryginal image pixels and ah one connections with corresponding neuron of the oryginal input layer. Adversarial attak layer activation function looks as follows:
-
-$$y=x_i+b_i$$
-
-where $x_i$ is a value of 
-
-### Calculalting the gradient
-
-The following formula describes how gradient is applayed to the perturbarion mask at each learning step:
-
-$$\forall t, 𝐩^{(t)}\leftarrow 𝐩^{(t-1)}-\min(-0.01, \max(\eta\nabla_{𝐩^{(t-1)}}-\log(y_t)+\log(y_o), 0.01))$$
-
-where $t$ is a learning step, 𝐩 is a perturbation mask and $\eta$ is a learning rate parameter. 
+Now it is clearly visible how the loss affects the training. It benefits the perturbation mask if probability of target class gets higher and probability of oryginal class gets lower. 
 
 ## Results
 ### Model performence before the attack
@@ -194,5 +180,14 @@ where $t$ is a learning step, 𝐩 is a perturbation mask and $\eta$ is a learni
     </tr>
   </tbody>
 </table>
+
+## Conclusion
+The adversarial attack succeeded in three out of four cases, with the resulting images showing no significant perceptual changes. In the final experiment, the perturbation mask successfully suppressed recognition of the original class but failed to consistently induce classification into the target class.
+
+## Future experiments
+For a follow-up project I propose developing a targeted adversarial attack against an object localization model. Given images that contain objects from multiple classes, the attack should generate a perturbation mask that causes the model to classify each object as a designated target class. The implementation must allow mapping each original class to an arbitrary target class.
+
+## Dataset
+Dataset used to train the model and to conduct the experiments is [german traffic signs dataset](https://benchmark.ini.rub.de/gtsrb_dataset.html?utm_source=chatgpt.com). Model itself was provided to me by a professor, I do not know it's origin.
 
 
